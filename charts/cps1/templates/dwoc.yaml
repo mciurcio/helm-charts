@@ -1,0 +1,8 @@
+kind: DevWorkspaceOperatorConfig
+apiVersion: controller.devfile.io/v1alpha1
+metadata:
+  name: devworkspace-operator-config
+  namespace: devworkspace-controller
+config:
+  routing:
+    clusterHostSuffix: {{ .Values.config.hostname }}

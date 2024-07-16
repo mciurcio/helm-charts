@@ -1,0 +1,18 @@
+# If you're pushing the image into a private repository update the values
+# below to use the correct repository
+image:
+  repository: ghcr.io/cps-1/cps1
+  pullPolicy: IfNotPresent
+  tag: "20240715-00c2cdae"
+
+# Swap the fields below with the required app configuration
+config:
+  hostname: cps1.myorg.com
+  clusterIssuer: letsencrypt-prod # A cluster-issue from CertManager to emit certificates
+  # Create a new GitLab application at Group > Settings > Applications
+  gitlab:
+    applicationId: 92aaa8ff57fbab0fafc06358746bf72d5c6a532de84d9bc3a12eb24f9284d870
+    groupId: "12345678" # Do note that this is a string
+    secret: gloas-212b287b40b2d8054f4cd28e142aed83b9cfdfd56036b0cafbe305dea5462b35
+  # Use your license
+  license: 68S66C1NCMV3GE1Q61GP6CSHCRT32D32CGW30CV16HHK6CK3C9JPAE9K6GT3GDHM6MSK2DK6CGT3CCSNCCWPCE1GC9JPCE1P71H3CE8

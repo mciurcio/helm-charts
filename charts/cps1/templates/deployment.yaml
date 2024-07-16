@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-cps1
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Release.Name }}-cps1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-cps1
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-cps1
+    spec:
+      containers:
+        - name: cps1-app
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 3001
+          env:
+          - name: RUST_LOG
+            value: INFO
+          - name: CONFIG__HOSTNAME
+            value: {{ .Values.config.hostname }}
+          - name: CONFIG__CERT_MANAGER__CLUSTER_ISSUER
+            value: {{ .Values.config.clusterIssuer }}
+          - name: LICENSE
+            value: {{ .Values.config.license }}
