@@ -6,7 +6,7 @@ This chart installs [CPS1](https://cps1.tech) in a [Kubernetes](http://kubernete
 
 ## Requirements
 
-- Kubernetes 1.28+
+- Kubernetes 1.31+
 - Helm 3+
 - Cert Manager v1.15+
 - Nginx Ingress Controller
@@ -23,13 +23,13 @@ helm repo update
 Customize the Chart before installing. See the [values.yaml](./values.yaml) file
 or run:
 ```
-helm show values cps1/cps1
+helm show values cps1/cps1-platform
 ```
 
 ## Install Chart
 
 ```
-helm install [RELEASE_NAME] cps1/cps1
+helm install [RELEASE_NAME] cps1/cps1-platform
 ```
 
 ## Uninstall Chart
