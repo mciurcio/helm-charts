@@ -9,10 +9,17 @@ image:
 config:
   hostname: cps1.myorg.com
   clusterIssuer: letsencrypt-prod # A cluster-issue from CertManager to emit certificates
+  oAuthEnabled: true
+  oAuthProvider: "gitlab" # Currently only "gitlab" and "github" are supported
   # Create a new GitLab application at Group > Settings > Applications
   gitlab:
-    applicationId: 92aaa8ff57fbab0fafc06358746bf72d5c6a532de84d9bc3a12eb24f9284d870
-    groupId: "12345678" # Do note that this is a string
-    secret: gloas-212b287b40b2d8054f4cd28e142aed83b9cfdfd56036b0cafbe305dea5462b35
+    applicationId: <applicationId>
+    groupId: "<groupId>" # Do note that this is a string
+    secret: <secret>
+  github:
+    clientId: <clientId>
+    orgName: <orgName>
+    secret: <secret>
+
   # Use your license
-  license: 68S66C1NCMV3GE1Q61GP6CSHCRT32D32CGW30CV16HHK6CK3C9JPAE9K6GT3GDHM6MSK2DK6CGT3CCSNCCWPCE1GC9JPCE1P71H3CE8
+  license: <license number>
