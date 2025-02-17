@@ -1,0 +1,15 @@
+apiVersion: cps1.tech/v1alpha1
+kind: CPS1Package
+metadata:
+  name: dotnet
+spec:
+  name: dotnet
+  label: Microsoft .NET
+  icon: dotnet.svg
+  versions:
+    - name: "6"
+      setupScript: |
+        nix-env -iA nixpkgs.dotnetCorePackages.sdk_6_0_1xx
+    - name: "8"
+      setupScript: |
+        nix-env -iA nixpkgs.dotnetCorePackages.sdk_8_0_2xx

@@ -1,0 +1,37 @@
+apiVersion: cps1.tech/v1alpha1
+kind: CPS1Package
+metadata:
+  name: python
+spec:
+  name: python
+  label: Python
+  icon: python.svg
+  versions:
+    - name: "3.9"
+      setupScript: |
+        nix-env -iA nixpkgs.python39 nixpkgs.pipenv nixpkgs.poetry
+        if [ ! -d "/opt/venv" ]; then
+          python -m venv /opt/venv
+        fi
+        VIRTUAL_ENV_DISABLE_PROMPT=1 source /opt/venv/bin/activate
+    - name: "3.10"
+      setupScript: |
+        nix-env -iA nixpkgs.python310 nixpkgs.pipenv nixpkgs.poetry
+        if [ ! -d "/opt/venv" ]; then
+          python -m venv /opt/venv
+        fi
+        VIRTUAL_ENV_DISABLE_PROMPT=1 source /opt/venv/bin/activate
+    - name: "3.11"
+      setupScript: |
+        nix-env -iA nixpkgs.python311 nixpkgs.pipenv nixpkgs.poetry
+        if [ ! -d "/opt/venv" ]; then
+          python -m venv /opt/venv
+        fi
+        VIRTUAL_ENV_DISABLE_PROMPT=1 source /opt/venv/bin/activate
+    - name: "3.12"
+      setupScript: |
+        nix-env -iA nixpkgs.python312 nixpkgs.pipenv nixpkgs.poetry
+        if [ ! -d "/opt/venv" ]; then
+          python -m venv /opt/venv
+        fi
+        VIRTUAL_ENV_DISABLE_PROMPT=1 source /opt/venv/bin/activate
