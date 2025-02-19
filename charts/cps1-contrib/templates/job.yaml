@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: xxy
+spec:
+  template:
+    metadata:
+      name: xxy
+    spec:
+      containers:
+      - name: xx-container
+        image: ubuntu:latest
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            {{- .Files.Get "scripts/abc.sh" | nindent 14 }}
+        securityContext:
+          privileged: true
+      restartPolicy: Never

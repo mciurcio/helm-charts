@@ -1,0 +1,49 @@
+apiVersion: cps1.tech/v1alpha1
+kind: CPS1Resource
+metadata:
+  name: mariadb
+spec:
+  name: mariadb
+  label: MariaDB
+  icon: postgres.svg
+  description: >-
+    PostgreSQL, also known as Postgres, is a free and open-source
+    relational database management system (RDBMS) emphasizing extensibility and
+    SQL compliance.
+  versions:
+    - name: "10.5"
+      image: "mariadb:10.5"
+    - name: "10.6"
+      image: "mariadb:10.6"
+    - name: "10.11"
+      image: "mariadb:10.11"
+    - name: "11.04"
+      image: "mariadb:11.04"
+    - name: "11.07"
+      image: "mariadb:11.07"
+  properties:
+    - name: database
+      default: postgres
+      env: POSTGRES_DB
+      kind: string
+    - name: username
+      default: postgres
+      env: POSTGRES_USER
+      kind: string
+    - name: password
+      default: postgres
+      env: POSTGRES_PASSWORD
+      kind: secret
+  defaults:
+    endpoints:
+    - name: postgres
+      exposure: internal
+      protocol: tcp
+      targetPort: 5432
+    env:
+    - name: PGDATA
+      value: /var/lib/postgresql/data/pgdata
+    volumes:
+    - name: pgdata
+      path: /var/lib/postgresql/data
+    memoryLimit: 512
