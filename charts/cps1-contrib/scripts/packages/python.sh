@@ -18,10 +18,13 @@ apt-get install -y build-essential \
     libxmlsec1-dev \
     libffi-dev \
     liblzma-dev
+
 curl -o- https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | PYENV_ROOT=/home/user/.pyenv bash
+
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> /home/user/.bashrc && \
 echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> /home/user/.bashrc && \
 echo 'eval "$(pyenv init -)"' >> /home/user/.bashrc
+
 PYENV_ROOT=/home/user/.pyenv
 PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)" && \
