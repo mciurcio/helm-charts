@@ -1,0 +1,19 @@
+apiVersion: cps1.tech/v1alpha1
+kind: CPS1Package
+metadata:
+  name: java
+spec:
+  name: java
+  label: Java
+  icon: java.svg
+  properties:
+    - name: version
+      label: Version
+      tip: Java version
+      kind: select
+      required: true
+      values: ["21.0.6-tem", "17.0.14-tem"]
+      default: "21.0.6-tem"
+  setupScript: |
+    {{- .Files.Get "scripts/packages/java.sh" | nindent 4 }}
+
