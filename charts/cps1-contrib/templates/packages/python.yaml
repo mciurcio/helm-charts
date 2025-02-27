@@ -1,5 +1,5 @@
 apiVersion: cps1.tech/v1alpha1
-kind: CPS1Stack
+kind: CPS1Package
 metadata:
   name: python
 spec:
@@ -9,11 +9,11 @@ spec:
   properties:
     - name: version
       label: Version
-      tip: The PostgreSQL version
+      tip: Python version
       kind: select
       required: true
-      values: ["13", "14", "15", "16"]
-      default: "16"
+      values: ["3.13", "3.12", "3.11", "3.10", "3.9"]
+      default: "3.13"
   setupScript: |
     {{- .Files.Get "scripts/packages/python.sh" | nindent 4 }}
 

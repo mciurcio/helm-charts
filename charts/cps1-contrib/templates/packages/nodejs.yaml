@@ -1,18 +1,18 @@
 apiVersion: cps1.tech/v1alpha1
-kind: CPS1Stack
+kind: CPS1Package
 metadata:
   name: nodejs
 spec:
   name: nodejs
   label: Node.js
   icon: nodedotjs.svg
-  versions:
-    - name: "18"
-      setupScript: |
-        nix-env -iA nixpkgs.nodejs_18
-    - name: "20"
-      setupScript: |
-        nix-env -iA nixpkgs.nodejs_20
-    - name: "22"
-      setupScript: |
-        nix-env -iA nixpkgs.nodejs_22
+  properties:
+    - name: version
+      label: Version
+      tip: NodeJS version
+      kind: select
+      required: true
+      values: ["v22", "v20", "v18"]
+      default: "v22"
+  setupScript: |
+    {{- .Files.Get "scripts/packages/nodejs.sh" | nindent 4 }}

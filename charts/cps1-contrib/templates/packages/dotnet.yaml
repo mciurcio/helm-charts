@@ -1,15 +1,18 @@
 apiVersion: cps1.tech/v1alpha1
-kind: CPS1Stack
+kind: CPS1Package
 metadata:
   name: dotnet
 spec:
   name: dotnet
   label: Microsoft .NET
   icon: dotnet.svg
-  versions:
-    - name: "6"
-      setupScript: |
-        nix-env -iA nixpkgs.dotnetCorePackages.sdk_6_0_1xx
-    - name: "8"
-      setupScript: |
-        nix-env -iA nixpkgs.dotnetCorePackages.sdk_8_0_2xx
+  properties:
+    - name: version
+      label: Version
+      tip: .NET version
+      kind: select
+      required: true
+      values: ["9", "8"]
+      default: "9"
+  setupScript: |
+    {{- .Files.Get "scripts/packages/dotnet.sh" | nindent 4 }}
