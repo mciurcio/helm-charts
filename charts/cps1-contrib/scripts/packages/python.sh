@@ -1,5 +1,8 @@
+#!/bin/bash
 
-PYTHON_VERSION=3.12
+set -euo pipefail
+
+: ${PYTHON_VERSION:="3.13"}
 
 # Python
 # https://github.com/pyenv/pyenv/wiki#suggested-build-environment
@@ -9,8 +12,6 @@ apt-get install -y build-essential \
     libbz2-dev \
     libreadline-dev \
     libsqlite3-dev \
-    curl \
-    git \
     libncursesw5-dev \
     xz-utils \
     tk-dev \
@@ -27,8 +28,10 @@ echo 'eval "$(pyenv init -)"' >> /home/user/.bashrc
 
 PYENV_ROOT=/home/user/.pyenv
 PATH="$PYENV_ROOT/bin:$PATH"
+HOME=/home/user
+
 eval "$(pyenv init -)" && \
 pyenv install ${PYTHON_VERSION} && \
 pyenv global ${PYTHON_VERSION}
-chown -R user /home/user/.pyenv
+chown -R user:user /home/user/.pyenv
 

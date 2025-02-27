@@ -4,10 +4,10 @@
 # during the build of a container image for a workspace template
 #
 
-TEMPLATE_NAME="default"
-TEMPLATE_VERSION="1"
-BASE_IMAGE="ghcr.io/cps-1/base-image:latest"
-REGISTRY="docker://cps1-registry:5000"
+: ${TEMPLATE_NAME:="default"}
+: ${TEMPLATE_VERSION:="1"}
+: ${BASE_IMAGE:="ghcr.io/cps-1/base-image:latest"}
+: ${REGISTRY:="docker://cps1-registry:5000"}
 
 buildah from --name ${TEMPLATE_NAME} ${BASE_IMAGE}
 

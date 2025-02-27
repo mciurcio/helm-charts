@@ -5,10 +5,8 @@ set -euo pipefail
 # gerar logs bonitos
 # testar se estamos rodando como user
 
-cd $HOME
-
-# v22, v20, v18
-NODE_VERSION=v22
+HOME=/home/user
+: ${NODE_VERSION:="v22"}
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 
@@ -17,5 +15,7 @@ export NVM_DIR="$HOME/.nvm"
 
 nvm install ${NODE_VERSION}
 nvm alias default ${NODE_VERSION}
+
+chown -R user:user /home/user/.nvm
 
 node --help
