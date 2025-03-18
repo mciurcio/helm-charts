@@ -24,9 +24,5 @@ spec:
           env:
           - name: RUST_LOG
             value: INFO
-          - name: CONFIG__HOSTNAME
-            value: {{ .Values.config.hostname }}
-          - name: CONFIG__CERT_MANAGER__CLUSTER_ISSUER
-            value: {{ .Values.config.clusterIssuer }}
           - name: LICENSE
             value: {{ .Values.config.license }}
