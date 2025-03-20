@@ -3,7 +3,7 @@
 image:
   repository: ghcr.io/cps-1/cps1
   pullPolicy: IfNotPresent
-  tag: "20250317-aea3e43a"
+  tag: "20250319-cb7d7a0c"
 
 # Swap the fields below with the required app configuration
 config:

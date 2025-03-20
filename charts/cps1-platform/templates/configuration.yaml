@@ -7,6 +7,9 @@ spec:
   hostname: {{ .Values.config.hostname }}
   clusterIssuer: {{ .Values.config.clusterIssuer }}
   license: {{ .Values.config.license }}
+  imageRegistry:
+      pullHost: localhost:5000
+      pushHost: localhost:5000
 {{- if .Values.config.oAuthEnabled }}
   {{- if eq .Values.config.oAuthProvider "github" }}
   oauthGitHub:
