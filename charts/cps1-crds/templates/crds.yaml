@@ -247,8 +247,11 @@ spec:
                                 type: string
                               default: {}
                               type: object
+                            version:
+                              type: string
                           required:
                           - name
+                          - version
                           type: object
                         service:
                           nullable: true
@@ -457,9 +460,6 @@ spec:
                 type: object
               description:
                 type: string
-              healthcheckScript:
-                nullable: true
-                type: string
               icon:
                 type: string
               label:
@@ -472,6 +472,9 @@ spec:
                     default:
                       description: A default value for the property. Used to pre-populate forms in user interfaces. If this propetry is required and received an empty value, this value will be used if available; otherwise it'll err.
                       nullable: true
+                      type: string
+                    env:
+                      description: Name of the environment variable that will receive this property value and pass it to the Resource container
                       type: string
                     kind:
                       description: What is the value type of this property.
@@ -504,16 +507,25 @@ spec:
                       nullable: true
                       type: array
                   required:
+                  - env
                   - kind
                   - label
                   - name
                   - required
                   type: object
                 type: array
-              setupScript:
-                type: string
-              startScript:
-                type: string
+              versions:
+                items:
+                  properties:
+                    image:
+                      type: string
+                    name:
+                      type: string
+                  required:
+                  - image
+                  - name
+                  type: object
+                type: array
             required:
             - defaults
             - description
@@ -521,8 +533,7 @@ spec:
             - label
             - name
             - properties
-            - setupScript
-            - startScript
+            - versions
             type: object
           status:
             nullable: true
@@ -744,8 +755,11 @@ spec:
                                 type: string
                               default: {}
                               type: object
+                            version:
+                              type: string
                           required:
                           - name
+                          - version
                           type: object
                         service:
                           nullable: true
@@ -889,6 +903,16 @@ spec:
                 type: string
               hostname:
                 type: string
+              imageRegistry:
+                properties:
+                  pullHost:
+                    type: string
+                  pushHost:
+                    type: string
+                required:
+                - pullHost
+                - pushHost
+                type: object
               license:
                 nullable: true
                 type: string
@@ -922,6 +946,7 @@ spec:
             required:
             - clusterIssuer
             - hostname
+            - imageRegistry
             - sshKnownHosts
             type: object
           status:
