@@ -49,7 +49,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cps1-registry
+  name: cps1-registry-pull
   namespace: {{ .Release.Namespace }}
 spec:
   selector:
@@ -59,3 +59,16 @@ spec:
       port: 5000
       nodePort: 30000
   type: NodePort
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cps1-registry-push
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: cps1-registry
+  ports:
+    - protocol: TCP
+      port: 5000
