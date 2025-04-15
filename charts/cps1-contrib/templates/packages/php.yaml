@@ -1,0 +1,19 @@
+apiVersion: cps1.tech/v1alpha1
+kind: CPS1Package
+metadata:
+  name: php
+spec:
+  name: php
+  label: PHP
+  icon: php.svg
+  properties:
+    - name: version
+      label: Version
+      tip: PHP version
+      kind: select
+      required: true
+      values: ["8.4", "8.3", "8.2", "8.1"]
+      default: "8.4"
+  setupScript: |
+    {{- .Files.Get "scripts/packages/php.sh" | nindent 4 }}
+

@@ -1,26 +1,18 @@
 apiVersion: cps1.tech/v1alpha1
 kind: CPS1Resource
 metadata:
-  name: mariadb
+  name: kafka
 spec:
-  name: mariadb
-  label: MariaDB
-  icon: mariadb.svg
+  name: kafka
+  label: Kafka
+  icon: kafka.svg
   description: >-
-    MariaDB is a free, open-source relational database management system (RDBMS)
-    developed by the original creators of MySQL. It's designed to be fast,
-    reliable, and user-friendly, suitable for both small and large-scale data processing. 
+    Apache Kafka is a distributed streaming platform, meaning it processes
+    and manages large volumes of real-time data. It's used for building
+    real-time data pipelines, streaming applications, and more.
   versions:
     - name: "10.5"
       image: "mariadb:10.5"
-    - name: "10.6"
-      image: "mariadb:10.6"
-    - name: "10.11"
-      image: "mariadb:10.11"
-    - name: "11.04"
-      image: "mariadb:11.04"
-    - name: "11.07"
-      image: "mariadb:11.07"
   properties:
     - name: root_password
       label: Root password

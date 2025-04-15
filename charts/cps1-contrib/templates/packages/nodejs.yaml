@@ -5,7 +5,7 @@ metadata:
 spec:
   name: nodejs
   label: Node.js
-  icon: nodedotjs.svg
+  icon: nodejs.svg
   properties:
     - name: version
       label: Version

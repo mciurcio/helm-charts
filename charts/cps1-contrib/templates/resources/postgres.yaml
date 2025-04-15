@@ -5,72 +5,46 @@ metadata:
 spec:
   name: postgres
   label: PostgreSQL
-  icon: postgres.svg
+  icon: postgresql.svg
   description: >-
     PostgreSQL, also known as Postgres, is a free and open-source
     relational database management system (RDBMS) emphasizing extensibility and
     SQL compliance.
+  versions:
+    - name: '16.4'
+      image: 'postgres:16.4-bookworm'
+    - name: '15.8'
+      image: 'postgres:15.8-bookworm'
+    - name: '14.13'
+      image: 'postgres:14.3-bookworm'
+    - name: '13.16'
+      image: 'postgres:13.16-bookworm'
   properties:
-    - name: version
-      label: Version
-      tip: The PostgreSQL version
-      kind: select
-      required: true
-      values: ["13", "14", "15", "16"]
-      default: "16"
     - name: username
       label: Username
       tip: The name for the first database supersuser.
       kind: string
       required: true
       default: postgres
+      env: POSTGRES_USER
     - name: password
       label: Password
       tip: The password for the first database supersuser.
       kind: secret
       required: true
       default: postgres
+      env: POSTGRES_PASSWORD
   defaults:
     ports:
-    - exposure: internal
-      protocol: tcp
-      port: 5432
+      - exposure: internal
+        protocol: tcp
+        port: 5432
     env:
-    - name: PGDATA
-      value: /var/lib/postgresql/data/pgdata
+      - name: PGDATA
+        value: /var/lib/postgresql/data/pgdata
     volumes:
-    - name: pgdata
-      path: /var/lib/postgresql/data
+      - name: pgdata
+        path: /var/lib/postgresql/data
     limits:
       memory: 512
       cpu: 1
-  setupScript: |
-    case $CPS1RES_VERSION in
-      13)
-        nix-env -iA nixpkgs.gosu nixpkgs.postgresql_13
-        ;;
-      14)
-        nix-env -iA nixpkgs.gosu nixpkgs.postgresql_14
-        ;;
-      15)
-        nix-env -iA nixpkgs.gosu nixpkgs.postgresql_15
-        ;;
-      16)
-        nix-env -iA nixpkgs.gosu nixpkgs.postgresql_16
-        ;;
-      *)
-        nix-env -iA nixpkgs.gosu nixpkgs.postgresql_16
-        ;;
-    esac
-    echo "postgres:x:1000:1000:postgres:/var/empty:/bin/sh" >> /etc/passwd
-    echo "postgres:x:1000:" >> /etc/group
-    mkdir -p $PGDATA
-    mkdir -p /run/postgresql/
-    chown -R postgres:postgres $PGDATA
-    chown -R postgres:postgres /run/postgresql/
-    gosu postgres bash -c 'initdb -D $PGDATA --username="$CPS1RES_USERNAME" --pwfile=<(printf "%s\n" "$CPS1RES_PASSWORD")'
-    echo "host    all             all             0.0.0.0/0               scram-sha-256" >> "$PGDATA/pg_hba.conf"
-  startScript: |
-    gosu postgres postgres -D $PGDATA -c listen_addresses='*'
-  healthcheckScript: |
-    pg_isready

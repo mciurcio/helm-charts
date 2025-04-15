@@ -7,22 +7,19 @@ spec:
   label: Redis
   icon: redis.svg
   description: >-
-    Redis is a in-memory storage, used as a distributed, in-memory key-value 
+    Redis is a in-memory storage, used as a distributed, in-memory key-value
     database, cache and message broker, with optional durability.
+  versions:
+    - name: '7.4'
+      image: 'redis:7.4-bookworm'
   properties: []
   defaults:
     ports:
-    - exposure: internal
-      protocol: tcp
-      port: 6379
+      - exposure: internal
+        protocol: tcp
+        port: 6379
     env: []
     volumes: []
     limits:
       memory: 512
       cpu: 1
-  setupScript: |
-    nix-env -iA nixpkgs.redis
-  startScript: |
-    redis-server --bind 0.0.0.0 --port 6379 --protected-mode "no"
-  healthcheckScript: |
-    redis-cli ping
