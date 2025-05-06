@@ -21,6 +21,19 @@ entries:
     urls:
     - https://github.com/cps-1/helm-charts/releases/download/cps1-chart-0.1.0-rc1/cps1-chart-0.1.0-rc1.tgz
     version: 0.1.0-rc1
+  cps1-contrib:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-06T17:52:17.249496937Z"
+    description: Helm chart with a collection of Resources, Templates and Packages
+      for the CPS1 Platform
+    digest: 7e7a3165733fb9f87c4660ea05619eb4bf2e95aa97d8f94e3a6d81f53769a8af
+    kubeVersion: '>= 1.31.0'
+    name: cps1-contrib
+    type: application
+    urls:
+    - https://github.com/cps-1/helm-charts/releases/download/cps1-contrib-0.0.20250506-N/cps1-contrib-0.0.20250506-N.tgz
+    version: 0.0.20250506-N
   cps1-platform:
   - apiVersion: v2
     appVersion: 20250210-89d1ed2f
@@ -33,4 +46,4 @@ entries:
     urls:
     - https://github.com/cps-1/helm-charts/releases/download/cps1-platform-0.1.0-rc1/cps1-platform-0.1.0-rc1.tgz
     version: 0.1.0-rc1
-generated: "2025-02-11T18:02:15.403551813Z"
+generated: "2025-05-06T17:52:17.249506104Z"
