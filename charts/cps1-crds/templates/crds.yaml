@@ -166,6 +166,7 @@ spec:
               template:
                 properties:
                   components:
+                    default: []
                     items:
                       properties:
                         container:
@@ -302,11 +303,11 @@ spec:
                               nullable: true
                               properties:
                                 dir:
+                                  default: ''
                                   type: string
                                 repository:
                                   type: string
                               required:
-                              - dir
                               - repository
                               type: object
                           type: object
@@ -314,8 +315,32 @@ spec:
                       - name
                       type: object
                     type: array
-                required:
-                - components
+                  tasks:
+                    default: []
+                    items:
+                      properties:
+                        command:
+                          type: string
+                        component:
+                          type: string
+                        kind:
+                          enum:
+                          - Before
+                          - Main
+                          - After
+                          type: string
+                        name:
+                          nullable: true
+                          type: string
+                        workingDir:
+                          nullable: true
+                          type: string
+                      required:
+                      - command
+                      - component
+                      - kind
+                      type: object
+                    type: array
                 type: object
               template_image:
                 type: string
@@ -329,15 +354,27 @@ spec:
             nullable: true
             properties:
               clonedRepos:
+                default: false
                 type: boolean
-              phase:
-                enum:
-                - Pending
-                - Running
-                - Stopping
-                - Stopped
-                - Terminating
-                type: string
+              components:
+                items:
+                  properties:
+                    component:
+                      type: string
+                    status:
+                      enum:
+                      - Pending
+                      - Ready
+                      - Failed
+                      type: string
+                  required:
+                  - component
+                  - status
+                  type: object
+                type: array
+              ideIsReady:
+                default: false
+                type: boolean
               urls:
                 items:
                   properties:
@@ -350,10 +387,6 @@ spec:
                   - url
                   type: object
                 type: array
-            required:
-            - clonedRepos
-            - phase
-            - urls
             type: object
         required:
         - spec
@@ -675,6 +708,7 @@ spec:
               template:
                 properties:
                   components:
+                    default: []
                     items:
                       properties:
                         container:
@@ -811,11 +845,11 @@ spec:
                               nullable: true
                               properties:
                                 dir:
+                                  default: ''
                                   type: string
                                 repository:
                                   type: string
                               required:
-                              - dir
                               - repository
                               type: object
                           type: object
@@ -823,8 +857,32 @@ spec:
                       - name
                       type: object
                     type: array
-                required:
-                - components
+                  tasks:
+                    default: []
+                    items:
+                      properties:
+                        command:
+                          type: string
+                        component:
+                          type: string
+                        kind:
+                          enum:
+                          - Before
+                          - Main
+                          - After
+                          type: string
+                        name:
+                          nullable: true
+                          type: string
+                        workingDir:
+                          nullable: true
+                          type: string
+                      required:
+                      - command
+                      - component
+                      - kind
+                      type: object
+                    type: array
                 type: object
             required:
             - baseImage
@@ -901,6 +959,8 @@ spec:
             properties:
               clusterIssuer:
                 type: string
+              gatewayHostname:
+                type: string
               hostname:
                 type: string
               imageRegistry:
@@ -945,6 +1005,7 @@ spec:
                 type: string
             required:
             - clusterIssuer
+            - gatewayHostname
             - hostname
             - imageRegistry
             - sshKnownHosts
