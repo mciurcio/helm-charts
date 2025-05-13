@@ -27,19 +27,16 @@ spec:
       tip: Password for the root user
       required: false
       default: root
-      env: ROOT_PASSWORD
+      env: MARIADB_ROOT_PASSWORD
       kind: secret
   defaults:
     ports:
       - exposure: internal
         protocol: tcp
-        port: 3366
-    env:
-      - name: PGDATA
-        value: /var/lib/postgresql/data/pgdata
+        port: 3306
     volumes:
-      - name: pgdata
-        path: /var/lib/postgresql/data
+      - name: datadir
+        path: /var/lib/mysql
     limits:
       memory: 512
       cpu: 1
