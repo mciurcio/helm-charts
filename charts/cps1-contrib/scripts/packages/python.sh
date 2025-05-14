@@ -2,36 +2,31 @@
 
 set -euo pipefail
 
-: ${PYTHON_VERSION:="3.13"}
+# shellcheck disable=SC2223
+: ${CPS1_PYTHON_VERSION:="3.13"}
 
-# Python
-# https://github.com/pyenv/pyenv/wiki#suggested-build-environment
-apt-get install -y build-essential \
-    libssl-dev \
-    zlib1g-dev \
-    libbz2-dev \
-    libreadline-dev \
-    libsqlite3-dev \
-    libncursesw5-dev \
-    xz-utils \
-    tk-dev \
-    libxml2-dev \
-    libxmlsec1-dev \
-    libffi-dev \
-    liblzma-dev
-
-curl -o- https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | PYENV_ROOT=/home/user/.pyenv bash
-
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> /home/user/.bashrc && \
-echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> /home/user/.bashrc && \
-echo 'eval "$(pyenv init -)"' >> /home/user/.bashrc
-
-PYENV_ROOT=/home/user/.pyenv
-PATH="$PYENV_ROOT/bin:$PATH"
 HOME=/home/user
 
-eval "$(pyenv init -)" && \
-pyenv install ${PYTHON_VERSION} && \
-pyenv global ${PYTHON_VERSION}
-chown -R user:user /home/user/.pyenv
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
+# shellcheck disable=SC1091
+source $HOME/.local/bin/env
+
+uv python install "$CPS1_PYTHON_VERSION" --default --preview
+
+# Workaround for https://github.com/astral-sh/python-build-standalone/issues/380
+# shellcheck disable=SC2155,SC2046
+export PATH=$(dirname $(realpath $(which python))):$PATH
+
+python -m venv $HOME/.venv
+
+export VIRTUAL_ENV_DISABLE_PROMPT=true
+# shellcheck disable=SC1091
+source "${HOME}/.venv/bin/activate"
+
+echo 'VIRTUAL_ENV_DISABLE_PROMPT=1 source /home/user/.venv/bin/activate' >> /home/user/.bashrc
+
+chown -R user:user /home/user/.local
+chown -R user:user /home/user/.venv
+
+python --version
