@@ -12,7 +12,7 @@ spec:
       tip: .NET version
       kind: select
       required: true
-      values: ["9", "8"]
-      default: "9"
+      values: ["9.0", "8.0"]
+      default: "9.0"
   setupScript: |
     {{- .Files.Get "scripts/packages/dotnet.sh" | nindent 4 }}
