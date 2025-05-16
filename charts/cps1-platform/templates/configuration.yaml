@@ -4,6 +4,8 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
 spec:
+  gateway:
+    hostname: {{ .Values.config.gateway.hostname }}
   hostname: {{ .Values.config.hostname }}
   clusterIssuer: {{ .Values.config.clusterIssuer }}
   license: {{ .Values.config.license }}

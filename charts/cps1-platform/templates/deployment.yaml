@@ -24,5 +24,3 @@ spec:
           env:
           - name: RUST_LOG
             value: INFO
-          - name: LICENSE
-            value: {{ .Values.config.license }}

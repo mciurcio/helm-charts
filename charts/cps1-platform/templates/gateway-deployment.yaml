@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-gateway
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Release.Name }}-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-gateway
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-gateway
+    spec:
+      containers:
+        - name: cps1-gateway
+          command:
+          - ./cps1-gateway
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 2222
+              protocol: TCP
+          ports:
+            - containerPort: 8443
+              protocol: TCP
+          env:
+          - name: RUST_LOG
+            value: INFO
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-gateway
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: {{ .Release.Name }}-gateway
+  ports:
+    - name: ssh
+      protocol: TCP
+      port: 2222
+      targetPort: 2222
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 8443
+  type: LoadBalancer
