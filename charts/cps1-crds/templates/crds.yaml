@@ -159,8 +159,6 @@ spec:
         properties:
           spec:
             properties:
-              id:
-                type: string
               run:
                 type: boolean
               template:
@@ -345,7 +343,6 @@ spec:
               template_image:
                 type: string
             required:
-            - id
             - run
             - template
             - template_image
@@ -353,9 +350,6 @@ spec:
           status:
             nullable: true
             properties:
-              clonedRepos:
-                default: false
-                type: boolean
               components:
                 items:
                   properties:
@@ -372,9 +366,35 @@ spec:
                   - status
                   type: object
                 type: array
-              ideIsReady:
-                default: false
-                type: boolean
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      default: 0
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
               urls:
                 items:
                   properties:
@@ -957,10 +977,28 @@ spec:
         properties:
           spec:
             properties:
-              clusterIssuer:
-                type: string
-              gatewayHostname:
-                type: string
+              gateway:
+                properties:
+                  hostname:
+                    type: string
+                  httpPort:
+                    default: 8080
+                    format: int32
+                    type: integer
+                  httpsPort:
+                    default: 8443
+                    format: int32
+                    type: integer
+                  sshPort:
+                    default: 2222
+                    format: int32
+                    type: integer
+                  tlsEnabled:
+                    default: true
+                    type: boolean
+                required:
+                - hostname
+                type: object
               hostname:
                 type: string
               imageRegistry:
@@ -973,9 +1011,6 @@ spec:
                 - pullHost
                 - pushHost
                 type: object
-              license:
-                nullable: true
-                type: string
               oauthGithub:
                 nullable: true
                 properties:
@@ -1004,8 +1039,7 @@ spec:
               sshKnownHosts:
                 type: string
             required:
-            - clusterIssuer
-            - gatewayHostname
+            - gateway
             - hostname
             - imageRegistry
             - sshKnownHosts
