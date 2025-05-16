@@ -6,6 +6,8 @@ metadata:
 spec:
   gateway:
     hostname: {{ .Values.config.gateway.hostname }}
+    httpsPort: 443
+    sshPort: 2222
   hostname: {{ .Values.config.hostname }}
   clusterIssuer: {{ .Values.config.clusterIssuer }}
   license: {{ .Values.config.license }}
