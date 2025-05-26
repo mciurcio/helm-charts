@@ -1,23 +1,23 @@
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  name: cps1users.cps1.tech
+  name: users.cps1.tech
 spec:
   group: cps1.tech
   names:
     categories: []
-    kind: CPS1User
-    plural: cps1users
+    kind: User
+    plural: users
     shortNames:
     - cps1-user
-    singular: cps1user
+    singular: user
   scope: Namespaced
   versions:
   - additionalPrinterColumns: []
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Auto-generated derived type for CPS1UserSpec via `CustomResource`
+        description: Auto-generated derived type for UserSpec via `CustomResource`
         properties:
           spec:
             properties:
@@ -129,7 +129,7 @@ spec:
             type: object
         required:
         - spec
-        title: CPS1User
+        title: User
         type: object
     served: true
     storage: true
@@ -139,23 +139,23 @@ spec:
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  name: cps1workspaces.cps1.tech
+  name: workspaces.cps1.tech
 spec:
   group: cps1.tech
   names:
     categories: []
-    kind: CPS1Workspace
-    plural: cps1workspaces
+    kind: Workspace
+    plural: workspaces
     shortNames:
     - cps1-ws
-    singular: cps1workspace
+    singular: workspace
   scope: Namespaced
   versions:
   - additionalPrinterColumns: []
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Auto-generated derived type for CPS1WorkspaceSpec via `CustomResource`
+        description: Auto-generated derived type for WorkspaceSpec via `CustomResource`
         properties:
           spec:
             properties:
@@ -300,9 +300,6 @@ spec:
                             source:
                               nullable: true
                               properties:
-                                dir:
-                                  default: ''
-                                  type: string
                                 repository:
                                   type: string
                               required:
@@ -410,7 +407,7 @@ spec:
             type: object
         required:
         - spec
-        title: CPS1Workspace
+        title: Workspace
         type: object
     served: true
     storage: true
@@ -420,23 +417,22 @@ spec:
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  name: cps1resources.cps1.tech
+  name: resources.cps1.tech
 spec:
   group: cps1.tech
   names:
     categories: []
-    kind: CPS1Resource
-    plural: cps1resources
-    shortNames:
-    - cps1-res
-    singular: cps1resource
+    kind: Resource
+    plural: resources
+    shortNames: []
+    singular: resource
   scope: Namespaced
   versions:
   - additionalPrinterColumns: []
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Auto-generated derived type for CPS1ResourceSpec via `CustomResource`
+        description: Auto-generated derived type for ResourceSpec via `CustomResource`
         properties:
           spec:
             properties:
@@ -593,7 +589,7 @@ spec:
             type: object
         required:
         - spec
-        title: CPS1Resource
+        title: Resource
         type: object
     served: true
     storage: true
@@ -603,23 +599,22 @@ spec:
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  name: cps1packages.cps1.tech
+  name: packages.cps1.tech
 spec:
   group: cps1.tech
   names:
     categories: []
-    kind: CPS1Package
-    plural: cps1packages
-    shortNames:
-    - cps1-package
-    singular: cps1package
+    kind: Package
+    plural: packages
+    shortNames: []
+    singular: package
   scope: Namespaced
   versions:
   - additionalPrinterColumns: []
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Auto-generated derived type for CPS1PackageSpec via `CustomResource`
+        description: Auto-generated derived type for PackageSpec via `CustomResource`
         properties:
           spec:
             properties:
@@ -687,7 +682,7 @@ spec:
             type: object
         required:
         - spec
-        title: CPS1Package
+        title: Package
         type: object
     served: true
     storage: true
@@ -697,23 +692,23 @@ spec:
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  name: cps1workspacetemplates.cps1.tech
+  name: templates.cps1.tech
 spec:
   group: cps1.tech
   names:
     categories: []
-    kind: CPS1WorkspaceTemplate
-    plural: cps1workspacetemplates
+    kind: Template
+    plural: templates
     shortNames:
     - cps1-wst
-    singular: cps1workspacetemplate
+    singular: template
   scope: Namespaced
   versions:
   - additionalPrinterColumns: []
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Auto-generated derived type for CPS1WorkspaceTemplateSpec via `CustomResource`
+        description: Auto-generated derived type for TemplateSpec via `CustomResource`
         properties:
           spec:
             properties:
@@ -864,9 +859,6 @@ spec:
                             source:
                               nullable: true
                               properties:
-                                dir:
-                                  default: ''
-                                  type: string
                                 repository:
                                   type: string
                               required:
@@ -947,7 +939,7 @@ spec:
             type: object
         required:
         - spec
-        title: CPS1WorkspaceTemplate
+        title: Template
         type: object
     served: true
     storage: true
@@ -957,23 +949,22 @@ spec:
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  name: cps1configs.cps1.tech
+  name: configs.cps1.tech
 spec:
   group: cps1.tech
   names:
     categories: []
-    kind: CPS1Config
-    plural: cps1configs
-    shortNames:
-    - cps1-conf
-    singular: cps1config
+    kind: Config
+    plural: configs
+    shortNames: []
+    singular: config
   scope: Namespaced
   versions:
   - additionalPrinterColumns: []
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Auto-generated derived type for CPS1ConfigSpec via `CustomResource`
+        description: Auto-generated derived type for ConfigSpec via `CustomResource`
         properties:
           spec:
             properties:
@@ -1054,7 +1045,7 @@ spec:
             type: object
         required:
         - spec
-        title: CPS1Config
+        title: Config
         type: object
     served: true
     storage: true
