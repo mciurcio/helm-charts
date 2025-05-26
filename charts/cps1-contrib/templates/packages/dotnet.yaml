@@ -1,5 +1,5 @@
 apiVersion: cps1.tech/v1alpha1
-kind: CPS1Package
+kind: Package
 metadata:
   name: dotnet
 spec:

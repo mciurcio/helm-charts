@@ -1,5 +1,5 @@
 apiVersion: cps1.tech/v1alpha1
-kind: CPS1Resource
+kind: Resource
 metadata:
   name: mariadb
 spec:
@@ -17,10 +17,10 @@ spec:
       image: "mariadb:10.6"
     - name: "10.11"
       image: "mariadb:10.11"
-    - name: "11.04"
-      image: "mariadb:11.04"
-    - name: "11.07"
-      image: "mariadb:11.07"
+    - name: "11.4"
+      image: "mariadb:11.4"
+    - name: "11.7"
+      image: "mariadb:11.7"
   properties:
     - name: root_password
       label: Root password
@@ -30,6 +30,9 @@ spec:
       env: MARIADB_ROOT_PASSWORD
       kind: secret
   defaults:
+    env:
+      - name: VAR
+        value: var
     ports:
       - exposure: internal
         protocol: tcp
