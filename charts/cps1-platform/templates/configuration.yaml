@@ -1,26 +1,24 @@
 apiVersion: cps1.tech/v1alpha1
-kind: CPS1Config
+kind: Config
 metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
 spec:
+  hostname: {{ .Values.config.hostname }}
   gateway:
     hostname: {{ .Values.config.gateway.hostname }}
-    httpsPort: 443
-    sshPort: 2222
-  hostname: {{ .Values.config.hostname }}
-  clusterIssuer: {{ .Values.config.clusterIssuer }}
-  license: {{ .Values.config.license }}
+    sshPort: {{ .Values.config.gateway.sshPort }}
+    httpsPort: {{ .Values.config.gateway.httpsPort }}
   imageRegistry:
-      pullHost: localhost:30000
-      pushHost: cps1-registry-push:5000
+    pullHost: {{ .Values.config.imageRegistry.pullHost }}
+    pushHost: {{ .Values.config.imageRegistry.pushHost }}
 {{- if .Values.config.oAuthEnabled }}
   {{- if eq .Values.config.oAuthProvider "github" }}
   oauthGitHub:
     clientId: {{ .Values.config.github.clientId }}
     orgName: {{ .Values.config.github.orgName }}
   {{- else if eq .Values.config.oAuthProvider "gitlab" }}
-  oauthGitLab:
+  oauthGitlab:
     applicationId: {{ .Values.config.gitlab.applicationId }}
     groupId: "{{ .Values.config.gitlab.groupId }}"
     hostname: "{{ .Values.config.gitlab.hostname }}"
@@ -34,18 +32,28 @@ spec:
     gitlab.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsj2bNKTBSpIYDEGk9KxsGh3mySTRgMtXL583qmBpzeQ+jqCMRgBqB98u3z++J1sKlXHWfM9dyhSevkMwSbhoR8XIq/U0tCNyokEi/ueaBMCvbcTHhO7FcwzY92WK4Yt0aGROY5qX2UKSeOvuP4D6TPqKF1onrSzH9bx9XUf2lEdWT/ia1NEKjunUqu1xOB/StKDHMoX4/OKyIzuS0q/T1zOATthvasJFoPrAjkohTyaDUz2LN5JoH839hViyEG82yB+MjcFV5MU3N1l1QL3cVUCh93xSaua1N85qivl+siMkPGbO5xR/En4iEY6K2XPASUEMaieWVNTRCtJ4S8H+9
     gitlab.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFSMqzJeV9rUzU4kWitGjeR4PWSa29SPqJ1fVkhtj3Hw9xjLVXVYrU9QlYWrOLXBpQ6KWjbjTDTdDkoohFzgbEY=
 
-{{- if .Values.config.oAuthEnabled }}
+{{- $cps1Config := lookup "v1" "Secret" .Release.Namespace "cps1-config" }}
+{{- $secretKey := randAlphaNum 64 }}
+{{- $secretKey := "STRING" }}
+{{- if $cps1Config }}
+{{- $secretKey = index $cps1Config.data "secretKey" | b64dec }}
+{{- end }}
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ .Values.config.oAuthProvider }}-config
+  name: cps1-config
   namespace: {{ .Release.Namespace }}
 type: Opaque
 stringData:
-  {{- if eq .Values.config.oAuthProvider "github" }}
-  secret: {{ .Values.config.github.secret }}
-  {{- else if eq .Values.config.oAuthProvider "gitlab" }}
-  secret: {{ .Values.config.gitlab.secret }}
+  secretKey: {{ $secretKey }}
+  {{- if .Values.config.license }}
+  license: {{ .Values.config.license }}
   {{- end }}
-{{- end }}
+  {{- if .Values.config.oAuthEnabled }}
+    {{- if eq .Values.config.oAuthProvider "github" }}
+  oauthGithubSecret: {{ .Values.config.github.secret }}
+    {{- else if eq .Values.config.oAuthProvider "gitlab" }}
+  oauthGitlabSecret: {{ .Values.config.gitlab.secret }}
+    {{- end }}
+  {{- end }}

@@ -53,10 +53,10 @@ spec:
   ports:
     - name: ssh
       protocol: TCP
-      port: 2222
+      port: {{ .Values.config.gateway.sshPort }}
       targetPort: 2222
     - name: https
       protocol: TCP
-      port: 443
+      port: {{ .Values.config.gateway.httpsPort }}
       targetPort: 8443
   type: LoadBalancer

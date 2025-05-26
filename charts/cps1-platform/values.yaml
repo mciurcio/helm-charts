@@ -3,14 +3,18 @@
 image:
   repository: ghcr.io/cps-1/cps1
   pullPolicy: IfNotPresent
-  tag: "20250404-d6094cd0"
+  tag: "v0.1.0-rc3"
 
 # Swap the fields below with the required app configuration
 config:
   hostname: cps1.myorg.com
   gateway:
     hostname: cps1.myorg.com
-  clusterIssuer: letsencrypt-prod # A cluster-issue from CertManager to emit certificates
+    sshPort: 2222
+    httpsPort: 443
+  imageRegistry:
+    pullHost: localhost:30000
+    pushHost: cps1-registry-push:5000
   oAuthEnabled: false
   oAuthProvider: "gitlab" # Currently only "gitlab" and "github" are supported
   # Create a new GitLab application at Group > Settings > Applications
@@ -18,10 +22,11 @@ config:
     applicationId: <applicationId>
     groupId: "<groupId>" # Do note that this is a string
     secret: <secret>
+    hostname: gitlab.com
   github:
     clientId: <clientId>
     orgName: <orgName>
     secret: <secret>
+  # license key - uncomment and set if needed
+  # license:
 
-  # Use your license
-  license: <license number>
