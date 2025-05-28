@@ -91,8 +91,11 @@ spec:
               name:
                 nullable: true
                 type: string
+              username:
+                type: string
             required:
             - identities
+            - username
             type: object
           status:
             nullable: true
@@ -357,6 +360,7 @@ spec:
                       - Pending
                       - Ready
                       - Failed
+                      - Paused
                       type: string
                   required:
                   - component
@@ -1028,6 +1032,9 @@ spec:
                 - groupId
                 type: object
               sshKnownHosts:
+                type: string
+              userNamespacePrefix:
+                default: u-
                 type: string
             required:
             - gateway
