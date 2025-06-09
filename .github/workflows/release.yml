@@ -1,6 +1,7 @@
 name: Release Charts
 on:
   push:
+    tags: [v*]
 jobs:
   release:
     permissions:
@@ -21,22 +22,22 @@ jobs:
         uses: azure/setup-helm@b9e51907a09c216f16ebe8536097933489208112
         with:
           version: latest
-      - name: Package Releases
-        run: |
-          DATE_TAG=$(date +'%Y%m%d')
-          mkdir -p .cr-release-packages
-          for chart in charts/*; do
-            if ! git diff --quiet HEAD~1 -- "$chart"; then
-              CHART_NAME=$(basename "$chart")
-              helm package "$chart" --destination .cr-release-packages --version "0.0.${DATE_TAG}-N"
-            fi
-          done
+        # - name: Package Releases
+        #     run: |
+        #  DATE_TAG=$(date +'%Y%m%d')
+        #  mkdir -p .cr-release-packages
+        #  for chart in charts/*; do
+        #    if ! git diff --quiet HEAD~1 -- "$chart"; then
+        #      CHART_NAME=$(basename "$chart")
+        #      helm package "$chart" --destination .cr-release-packages --version "0.0.${DATE_TAG}-N"
+        #    fi
+        #  done
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
         with:
           version: 'v1.8.1'
           skip_packaging: true
-          #skip_existing: true
+          skip_existing: true
           #packages_with_index: true
           config: ./.github/cr.yaml
         env:
