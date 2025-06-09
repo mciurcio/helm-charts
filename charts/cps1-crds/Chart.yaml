@@ -3,5 +3,5 @@ name: cps1-crds
 description: Helm chart to install CPS1 Custom Resource Definitions in your Kubernetes cluster
 type: application
 kubeVersion: ">= 1.31.0"
-version: v0.1.0-rc3
+version: v0.1.0-rc4
 appVersion: "v0.1.0-rc3"
