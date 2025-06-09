@@ -34,6 +34,7 @@ jobs:
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
         with:
+          version: '1.8.1'
           skip_packaging: true
           skip_existing: true
           packages_with_index: true
