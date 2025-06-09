@@ -30,6 +30,5 @@ jobs:
           skip_packaging: true
           skip_existing: true
           packages_with_index: true
-          config: ./.github/cr.yaml
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
