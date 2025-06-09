@@ -8,7 +8,6 @@ This chart installs [CPS1](https://cps1.tech) in a [Kubernetes](http://kubernete
 
 - Kubernetes 1.31+
 - Helm 3+
-- Cert Manager v1.15+
 - Nginx Ingress Controller
 
 ## Update Repo Info
