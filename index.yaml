@@ -93,4 +93,15 @@ entries:
     urls:
     - cps1-platform-0.0.20250609-N.tgz
     version: 0.0.20250609-N
-generated: "2025-06-09T14:06:13.488869002Z"
+  - apiVersion: v2
+    appVersion: 20250210-89d1ed2f
+    created: "2025-06-09T14:34:18.5554901Z"
+    description: Helm chart to install CPS1 in your Kubernetes cluster
+    digest: cd02c1a074c23a858e35d9b31edf81a3ad456f171c75b0d5b85906ea7e416bfe
+    kubeVersion: '>= 1.31.0'
+    name: cps1-platform
+    type: application
+    urls:
+    - cps1-platform-0.0.20250609-N.tgz
+    version: 0.0.20250609-N
+generated: "2025-06-09T14:34:18.55551604Z"
